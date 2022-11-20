@@ -1,0 +1,19 @@
+{
+	"files.associations": {
+		"MAIN.C": "cpp",
+		"MAIN.C 22-20-11-429.C": "cpp",
+		"__node_handle": "c",
+		"__locale": "c",
+		"__string": "c",
+		"string": "c",
+		"string_view": "c",
+		"so_long.h": "c",
+		"libft.h": "c",
+		"struct.h": "c",
+		"sstream": "cpp",
+		"__bit_reference": "c",
+		"algorithm": "c",
+		"ios": "c",
+		"type_traits": "c"
+	}
+}

@@ -1,0 +1,2 @@
+commande pour compiler (ajouter 1 argument correspondant au nom du fichier):
+	cc -I /usr/local/include main.c -L /usr/local/lib -lmlx -framework OpenGl -framework AppKit && ./a.out
