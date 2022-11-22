@@ -64,7 +64,7 @@ libft/libft.a:
 
 clean:
 	@make -C libft/ clean
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ) srcs/main.o
 	@printf "> $(GREEN)all .o $(CMP_DELETE)$(WHITE)"
 
 fclean: clean
