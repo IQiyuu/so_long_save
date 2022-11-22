@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 09:48:18 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/22 18:47:10 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/22 19:04:17 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	win_init(t_mapconf *conf)
 	mlx_texture_t	**texts;
 	t_graphconf		*g_conf;
 
-	mlx = mlx_init(conf->x_size * 64, conf->y_size * 64, "so_long", true);
+	mlx = mlx_init(conf->x_size * 64, conf->y_size * 64, "sline_attak", true);
 	texts = (mlx_texture_t **)malloc(sizeof(mlx_texture_t *) * NBR_TEXTS);
 	imgs = (mlx_image_t **)malloc(sizeof(mlx_image_t *) * NBR_IMGS);
 	g_conf = new_graphconf(conf, imgs, texts, mlx);
