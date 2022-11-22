@@ -1,4 +1,4 @@
-NAME = so_long
+NAME = scotch.a
 LIB = libft/libft.a
 
 FILES = map_manager\
@@ -10,14 +10,18 @@ FILES = map_manager\
 		term_graph\
 		utils\
 		window_manager\
-		graph_moves
+		graph_moves\
+		ennemy_manager\
+		end_game\
+		animation\
+		key_manager
 
 S = $(foreach f, $(FILES), srcs/$(f).c)
 
 OBJ = $(S:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -I headers/ -I minilibx/include
-G_FLG = -g3 -fsanitize=address minilibx/libmlx42.a -lglfw -L "/Users/$(shell echo $(USER))/.brew/opt/glfw/lib/"
+G_FLG = -fsanitize=address minilibx/libmlx42.a -lglfw -L "/Users/$(shell echo $(USER))/.brew/opt/glfw/lib/"
 
 C1			= $(shell bc <<< "((($(CMP_COUNT)*100)/($(CMP_TOTAL) / 2))*255)/200")
 C2			= $(shell bc <<< "((($(CMP_COUNT)*100)/($(CMP_TOTAL) / 2))*255)/100")
@@ -41,9 +45,9 @@ all: $(NAME)
 run: all
 	./so_long
 
-$(NAME): libft.a $(OBJ)
+$(NAME): $(LIB) $(OBJ)
 	@ar -rcs scotch.a $(OBJ)
-	@gcc -o so_long srcs/main.c scotch.a $(CFLAGS) $(G_FLG)
+	@gcc -o so_long srcs/main.c scotch.a $(CFLAGS) $(G_FLG) -g
 	@printf "\n$(WHITE)> $(GREEN)$(NAME) $(CMP_OK)$(WHITE)"
 
 .c.o:
@@ -54,8 +58,8 @@ $(NAME): libft.a $(OBJ)
 		else printf $(CLEAR)>$(RBW_P2)";\
 	fi
 
-libft.a:
-	@make -C libft
+libft/libft.a:
+	@make -C libft/
 	@cp $(LIB) ./scotch.a
 
 clean:
@@ -64,7 +68,7 @@ clean:
 	@printf "> $(GREEN)all .o $(CMP_DELETE)$(WHITE)"
 
 fclean: clean
-	@rm -rf $(NAME) libft.a
+	@rm -rf $(NAME) $(LIB)
 	@printf "> $(GREEN)$(NAME) and libft.a $(CMP_DELETE)$(WHITE)"
 
 re: fclean all

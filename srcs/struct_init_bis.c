@@ -6,20 +6,114 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 19:39:38 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/20 20:18:41 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/22 18:37:29 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_graphconf	*new_graphconf(t_mapconf *conf, mlx_image_t **imgs)
+t_graphconf	*new_graphconf(t_mapconf *conf, mlx_image_t **imgs,
+	mlx_texture_t **texts, mlx_t *mlx)
 {
 	t_graphconf	*g_conf;
 
 	g_conf = (t_graphconf *)malloc(sizeof(t_graphconf));
 	g_conf->imgs = imgs;
+	g_conf->mlx = mlx;
+	g_conf->texts = texts;
 	g_conf->conf = conf;
-	g_conf->m_str = "moves : 0";
+	g_conf->m_str = ft_strdup("moves : 0");
 	g_conf->i_str = ft_strjoin("Item : 0/", ft_itoa(conf->collectibles_nbr));
+	g_conf->anims = (t_animframe **)malloc(sizeof(t_animframe *) * 4);
+	g_conf->anim_nbr = 4;
 	return (g_conf);
+}
+
+void	init_enemies(t_mapconf *conf)
+{
+	int		cpt;
+	int		cpt2;
+	char	**map;
+
+	map = conf->map;
+	cpt = 1;
+	while (map[cpt])
+	{
+		cpt2 = 1;
+		while (map[cpt][cpt2])
+			if (map[cpt][cpt2++] == 'S')
+				ft_lstadd_back(&conf->ennemies, new_coords(cpt2 - 1, cpt));
+		cpt++;
+	}
+}
+
+void	init_graph_player(t_graphconf *g_conf)
+{
+	mlx_image_t	*img;
+	int			cpt;
+
+	cpt = -1;
+	while (++cpt < 6)
+	{
+		img = g_conf->anims[1]->imgs[cpt];
+		mlx_image_to_window(g_conf->mlx, img,
+			g_conf->conf->player->coords->x * 64,
+			g_conf->conf->player->coords->y * 64);
+		if (cpt != 0)
+			img->instances[0].enabled = 0;
+	}
+}
+
+void	init_graph_enemies(t_graphconf *g_conf, mlx_t *mlx, int index)
+{
+	size_t		cpt;
+	size_t		cpt2;
+	int			cpt3;
+	mlx_image_t	*img;
+
+	cpt = -1;
+	while (++cpt < g_conf->conf->y_size && g_conf->conf->map[cpt])
+	{
+		cpt2 = -1;
+		while (++cpt2 < g_conf->conf->x_size && g_conf->conf->map[cpt][cpt2])
+		{
+			if (g_conf->conf->map[cpt][cpt2] == 'S')
+			{
+				cpt3 = -1;
+				while (++cpt3 < 9)
+				{
+					img = g_conf->anims[0]->imgs[cpt3];
+					index = mlx_image_to_window(mlx, img,
+							cpt2 * 64, (cpt * 64) + 15);
+					if (cpt3 != 0)
+						img->instances[index].enabled = 0;
+				}
+			}
+		}
+	}
+}
+
+t_animframe	*new_animation(char *base_filename, int size, mlx_t *mlx)
+{
+	t_animframe	*new_anim;
+	int			cpt;
+	char		*tmp;
+
+	cpt = 0;
+	new_anim = (t_animframe *)malloc(sizeof(t_animframe));
+	new_anim->enable = 0;
+	new_anim->texts = (mlx_texture_t **)malloc(sizeof(mlx_texture_t *) * size);
+	new_anim->imgs = (mlx_image_t **)malloc(sizeof(mlx_image_t *) * size);
+	while (cpt < size)
+	{
+		tmp = ft_strjoin(base_filename, ft_itoa(cpt));
+		tmp = ft_strjoin(tmp, ".png");
+		new_anim->texts[cpt] = mlx_load_png(ft_strjoin(IMG_PATH, tmp));
+		new_anim->imgs[cpt] = mlx_texture_to_image(mlx, new_anim->texts[cpt]);
+		cpt++;
+	}
+	new_anim->count = 0;
+	new_anim->size = size;
+	new_anim->index = 0;
+	return (new_anim);
 }

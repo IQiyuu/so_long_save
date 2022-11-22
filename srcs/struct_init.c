@@ -6,23 +6,27 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:46:31 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/20 19:58:13 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/21 11:37:57 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	init_map_struct(t_mapconf **conf)
+t_mapconf	*init_map_struct(void)
 {
-	*conf = (t_mapconf *)malloc(sizeof(t_mapconf));
-	if (!*conf)
-		return ;
-	(*conf)->x_size = 0;
-	(*conf)->y_size = 0;
-	(*conf)->collectibles_nbr = 0;
-	(*conf)->player = NULL;
-	(*conf)->escap = 0;
-	(*conf)->map = NULL;
+	t_mapconf	*conf;
+
+	conf = (t_mapconf *)malloc(sizeof(t_mapconf));
+	if (!conf)
+		return (NULL);
+	conf->x_size = 0;
+	conf->y_size = 0;
+	conf->collectibles_nbr = 0;
+	conf->player = NULL;
+	conf->escap = 0;
+	conf->map = NULL;
+	conf->ennemies = NULL;
+	return (conf);
 }
 
 t_list	*new_list(t_coords *act)

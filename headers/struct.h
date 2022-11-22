@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:42:17 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/20 20:05:21 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/21 16:59:12 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,32 @@ typedef struct s_mapconf
 	size_t		x_size;
 	size_t		y_size;
 	t_player	*player;
+	t_list		*ennemies;
 	size_t		collectibles_nbr;
 	char		**map;
 	t_coords	*escap;
 }	t_mapconf;
 
+typedef struct s_animframe
+{
+	mlx_texture_t	**texts;
+	mlx_image_t		**imgs;
+	int				index;
+	int				enable;
+	int				count;
+	int				size;
+}	t_animframe;
+
 typedef struct s_graphconf
 {
-	t_mapconf	*conf;
-	mlx_image_t	**imgs;
-	char		*i_str;
-	char		*m_str;
+	t_mapconf		*conf;
+	mlx_t			*mlx;
+	mlx_image_t		**imgs;
+	mlx_texture_t	**texts;
+	char			*i_str;
+	char			*m_str;
+	t_animframe		**anims;
+	int				anim_nbr;
 }	t_graphconf;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:50:20 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/20 17:59:03 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/22 16:30:20 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,15 @@ int	is_in(t_list *closed, t_coords *act, int x, int y)
 	return (same_coords(closed->coords, act, x, y));
 }
 
-int	nbr_empty_case(char **map)
+int	nbr_move_pos(char **map, t_coords *act)
 {
-	int	i;
-	int	j;
 	int	cpt;
 
-	i = 0;
 	cpt = 0;
-	while (map[++i] != NULL)
-	{
-		j = 0;
-		while (map[i][++j] != '\0')
-			cpt += (map[i][j] == 0);
-	}
+	cpt += (ft_strchr("E1", map[act->y][act->x + 1]) == -1);
+	cpt += (ft_strchr("E1", map[act->y + 1][act->x]) == -1);
+	cpt += (ft_strchr("E1", map[act->y][act->x - 1]) == -1);
+	cpt += (ft_strchr("E1", map[act->y - 1][act->x]) == -1);
 	return (cpt);
 }
 

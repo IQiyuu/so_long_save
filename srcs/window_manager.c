@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 09:48:18 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/20 20:18:06 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/22 18:47:10 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,74 +34,74 @@ int	fill_win(t_graphconf *g_conf, mlx_t *mlx)
 	}
 	mlx_image_to_window(mlx, g_conf->imgs[2], g_conf->conf->escap->x * 64 - 20,
 		g_conf->conf->escap->y * 64);
-	mlx_image_to_window(mlx, g_conf->imgs[3], 
-		g_conf->conf->player->coords->x * 64, 
-		g_conf->conf->player->coords->y * 64);
+	init_graph_player(g_conf);
 	return (1);
-}
-
-void	exit_key(void *param)
-{
-	mlx_t	*mlx;
-
-	mlx = param;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-	{
-		mlx_close_window(mlx);
-		ft_printf("END\nreason:\n\tescape pressed\n");
-	}
 }
 
 void	move_manager(mlx_key_data_t keydata, void *param)
 {
 	t_graphconf	*g_conf;
+	static int	end = 0;
 
 	g_conf = (t_graphconf *)param;
-	if ((keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT)
-		&& keydata.action != MLX_RELEASE)
-		move_left(g_conf->conf->player, g_conf->conf->map,
-			g_conf->conf->collectibles_nbr, g_conf->imgs);
-	if ((keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT)
-		&& keydata.action != MLX_RELEASE)
-		move_right(g_conf->conf->player, g_conf->conf->map,
-			g_conf->conf->collectibles_nbr, g_conf->imgs);
-	if ((keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
-		&& keydata.action != MLX_RELEASE)
-		move_down(g_conf->conf->player, g_conf->conf->map,
-			g_conf->conf->collectibles_nbr, g_conf->imgs);
-	if ((keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP)
-		&& keydata.action != MLX_RELEASE)
-		move_up(g_conf->conf->player, g_conf->conf->map,
-			g_conf->conf->collectibles_nbr, g_conf->imgs);
+	if (keydata.action != MLX_RELEASE)
+		end = key_manager(g_conf, keydata);
+	if (end)
+		end_game(g_conf, 1);
+}
+
+void	init_img(mlx_t *mlx, t_graphconf *g_conf)
+{
+	g_conf->texts[0] = mlx_load_png(ft_strjoin(IMG_PATH, "grass.png"));
+	g_conf->imgs[0] = mlx_texture_to_image(mlx, g_conf->texts[0]);
+	g_conf->texts[1] = mlx_load_png(ft_strjoin(IMG_PATH, "tree.png"));
+	g_conf->imgs[1] = mlx_texture_to_image(mlx, g_conf->texts[1]);
+	g_conf->texts[2] = mlx_load_png(ft_strjoin(IMG_PATH, "house.png"));
+	g_conf->imgs[2] = mlx_texture_to_image(mlx, g_conf->texts[2]);
+	g_conf->texts[3] = mlx_load_png(ft_strjoin(IMG_PATH, "wizard/wizard0.png"));
+	g_conf->imgs[3] = mlx_texture_to_image(mlx, g_conf->texts[3]);
+	g_conf->texts[4] = mlx_load_png(ft_strjoin(IMG_PATH, "paper.png"));
+	g_conf->imgs[4] = mlx_texture_to_image(mlx, g_conf->texts[4]);
+	g_conf->texts[5] = mlx_load_png(ft_strjoin(IMG_PATH, "slime/slime0.png"));
+	g_conf->imgs[5] = mlx_texture_to_image(mlx, g_conf->texts[5]);
+	g_conf->texts[6] = mlx_load_png(ft_strjoin(IMG_PATH, "black_bg.png"));
+	g_conf->imgs[8] = mlx_texture_to_image(g_conf->mlx, g_conf->texts[6]);
+	g_conf->texts[7] = mlx_load_png(ft_strjoin(IMG_PATH, "white_bg.png"));
+	g_conf->imgs[9] = mlx_texture_to_image(g_conf->mlx, g_conf->texts[7]);
+}
+
+void	init_anim(mlx_t *mlx, t_graphconf *g_conf)
+{
+	g_conf->anims[0] = new_animation("slime/slime", 9, mlx);
+	g_conf->anims[1] = new_animation("wizard/wizard", 6, mlx);
+	g_conf->anims[2] = new_animation("death/death", 7, mlx);
+	g_conf->anims[3] = new_animation("win/win", 6, mlx);
+	g_conf->anims[0]->enable = 1;
+	g_conf->anims[1]->enable = 1;
 }
 
 int	win_init(t_mapconf *conf)
 {
 	mlx_t			*mlx;
-	mlx_texture_t	*texts[5];
 	mlx_image_t		**imgs;
+	mlx_texture_t	**texts;
 	t_graphconf		*g_conf;
 
-	imgs = (mlx_image_t **)malloc(sizeof(mlx_image_t *) * 7);
-	g_conf = new_graphconf(conf, imgs);
 	mlx = mlx_init(conf->x_size * 64, conf->y_size * 64, "so_long", true);
-	texts[0] = mlx_load_png("img/grass2.png");
-	g_conf->imgs[0] = mlx_texture_to_image(mlx, texts[0]);
-	texts[1] = mlx_load_png("img/tree.png");
-	g_conf->imgs[1] = mlx_texture_to_image(mlx, texts[1]);
-	texts[2] = mlx_load_png("img/house.png");
-	g_conf->imgs[2] = mlx_texture_to_image(mlx, texts[2]);
-	texts[3] = mlx_load_png("img/wizard4.png");
-	g_conf->imgs[3] = mlx_texture_to_image(mlx, texts[3]);
-	texts[4] = mlx_load_png("img/paper.png");
-	g_conf->imgs[4] = mlx_texture_to_image(mlx, texts[4]);
+	texts = (mlx_texture_t **)malloc(sizeof(mlx_texture_t *) * NBR_TEXTS);
+	imgs = (mlx_image_t **)malloc(sizeof(mlx_image_t *) * NBR_IMGS);
+	g_conf = new_graphconf(conf, imgs, texts, mlx);
+	init_img(mlx, g_conf);
 	if (!mlx)
 		return (EXIT_FAILURE);
+	init_anim(mlx, g_conf);
 	fill_win(g_conf, mlx);
-	mlx_loop_hook(mlx, &exit_key, mlx);
+	init_graph_enemies(g_conf, mlx, 0);
+	mlx_loop_hook(mlx, &animation_manager, g_conf);
 	mlx_key_hook(mlx, &move_manager, g_conf);
-	g_conf->imgs[5] = mlx_put_string(mlx, g_conf->m_str, 10, 10);
-	g_conf->imgs[6] = mlx_put_string(mlx, g_conf->i_str, (conf->x_size - 2) * 64 - 10, 10);
+	g_conf->imgs[6] = mlx_put_string(mlx, g_conf->m_str, 10, 10);
+	g_conf->imgs[7] = mlx_put_string(mlx, g_conf->i_str,
+			(conf->x_size - 2) * 64 - 10, 10);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);

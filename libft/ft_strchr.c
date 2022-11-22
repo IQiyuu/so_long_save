@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 17:19:39 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/16 11:51:26 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/21 12:39:35 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ int	ft_strchr(const char *s, int c)
 			return (cpt - 1);
 	if (s[cpt] == (unsigned char)c)
 		return (cpt);
-	return (0);
+	return (-1);
 }

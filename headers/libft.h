@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:39:27 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/20 15:38:53 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/21 21:27:05 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# define RED "\x1b[38;2;255;0;0m"
+# define L_RED "\x1b[38;2;255;200;200m"
+# define GREEN "\x1b[38;2;0;255;0m"
+# define L_GREEN "\x1b[38;2;200;255;200m"
 
 typedef struct s_coords
 {
@@ -78,9 +83,6 @@ char	*get_next_line(int fd);
 int		ft_printf(const char *str, ...);
 void	ft_putnbr_ui_fd(unsigned int n, int fd);
 int		ft_convertbase(unsigned long nbr, char *base_to);
+int		ft_is_there(char *str1, char *str2, int size);
 
-#endif
-
-#ifndef GREEN
-# define GREEN "\x1b[38;2;0;255;0"
 #endif
