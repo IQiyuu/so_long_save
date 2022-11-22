@@ -68,8 +68,8 @@ clean:
 	@printf "> $(GREEN)all .o $(CMP_DELETE)$(WHITE)"
 
 fclean: clean
-	@rm -rf $(NAME) $(LIB)
-	@printf "> $(GREEN)$(NAME) and libft.a $(CMP_DELETE)$(WHITE)"
+	@rm -rf $(NAME) $(LIB) ./so_long
+	@printf "> $(GREEN)$(NAME), libft.a and so_long $(CMP_DELETE)$(WHITE)"
 
 re: fclean all
 
