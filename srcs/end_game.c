@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:53:08 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/22 18:49:44 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/23 16:15:26 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	black_fade(t_graphconf *g_conf)
 		f_cpt++;
 		mlx_image_to_window(g_conf->mlx, img, 0, 0);
 	}
-
 	anim = g_conf->anims[2];
 	if (!anim->enable && f_cpt < 10)
 		anim->enable = 1;

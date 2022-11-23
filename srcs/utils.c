@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:50:20 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/22 16:30:20 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/23 15:42:22 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@ int	same_coords(t_coords *c1, t_coords *c2, int x, int y)
 	return ((c1->x == (c2->x + x)) && (c1->y == (c2->y + y)));
 }
 
-void	print_tlist(t_list *lst)
+int	wrong_tile(char *line)
 {
 	int	cpt;
 
 	cpt = 0;
-	while (lst->next)
-	{
-		ft_printf("lst[%d] = (%d,%d)\n", cpt, lst->coords->x, lst->coords->y);
-		lst = lst->next;
-	}
+	while (line[cpt])
+		if (ft_strchr("EP01SC", line[cpt++]) == -1)
+			return (1);
+	return (0);
 }
 
 int	is_in(t_list *closed, t_coords *act, int x, int y)

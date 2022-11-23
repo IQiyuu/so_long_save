@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:46:24 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/19 15:19:25 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/23 17:16:54 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	conv_int(int nbr, int ui)
 	if (ui)
 	{
 		if (nbr < 0)
-			n = 4294967296 + nbr;
+			n = UINT_MAX + nbr;
 		else
 			n = nbr;
 		ft_putnbr_ui_fd(n, 1);

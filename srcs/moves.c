@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 18:33:39 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/22 12:58:05 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/23 15:44:23 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	apply_move(t_graphconf *g_conf)
 	p_y = conf->player->coords->y;
 	p_x = conf->player->coords->x;
 	m_count = &g_conf->conf->player->move_count;
-	graph_move_player(conf->player->coords, g_conf->anims[1]->imgs[g_conf->anims[1]->index]);
+	graph_move_player(conf->player->coords,
+		g_conf->anims[1]->imgs[g_conf->anims[1]->index]);
 	graph_refresh_mcount(g_conf);
 	if (conf->map[p_y][p_x] == 'E' &&
 		conf->player->item_count == conf->collectibles_nbr)
@@ -37,9 +38,8 @@ int	apply_move(t_graphconf *g_conf)
 		conf->map[p_y][p_x] = 'c';
 		graph_refresh_icount(g_conf);
 	}
-	else if (ennemy_on_player(g_conf))
-		return (0);
-	gen_ennemies_moves(g_conf);
+	else if (!ennemy_on_player(g_conf))
+		gen_ennemies_moves(g_conf);
 	return (0);
 }
 

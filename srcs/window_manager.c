@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 09:48:18 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/22 19:04:17 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/23 16:16:41 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,42 @@ void	move_manager(mlx_key_data_t keydata, void *param)
 void	init_img(mlx_t *mlx, t_graphconf *g_conf)
 {
 	g_conf->texts[0] = mlx_load_png(ft_strjoin(IMG_PATH, "grass.png"));
-	g_conf->imgs[0] = mlx_texture_to_image(mlx, g_conf->texts[0]);
 	g_conf->texts[1] = mlx_load_png(ft_strjoin(IMG_PATH, "tree.png"));
-	g_conf->imgs[1] = mlx_texture_to_image(mlx, g_conf->texts[1]);
 	g_conf->texts[2] = mlx_load_png(ft_strjoin(IMG_PATH, "house.png"));
-	g_conf->imgs[2] = mlx_texture_to_image(mlx, g_conf->texts[2]);
 	g_conf->texts[3] = mlx_load_png(ft_strjoin(IMG_PATH, "wizard/wizard0.png"));
-	g_conf->imgs[3] = mlx_texture_to_image(mlx, g_conf->texts[3]);
 	g_conf->texts[4] = mlx_load_png(ft_strjoin(IMG_PATH, "paper.png"));
-	g_conf->imgs[4] = mlx_texture_to_image(mlx, g_conf->texts[4]);
 	g_conf->texts[5] = mlx_load_png(ft_strjoin(IMG_PATH, "slime/slime0.png"));
-	g_conf->imgs[5] = mlx_texture_to_image(mlx, g_conf->texts[5]);
 	g_conf->texts[6] = mlx_load_png(ft_strjoin(IMG_PATH, "black_bg.png"));
-	g_conf->imgs[8] = mlx_texture_to_image(g_conf->mlx, g_conf->texts[6]);
 	g_conf->texts[7] = mlx_load_png(ft_strjoin(IMG_PATH, "white_bg.png"));
+	check_text_error(g_conf);
+	g_conf->imgs[0] = mlx_texture_to_image(mlx, g_conf->texts[0]);
+	g_conf->imgs[1] = mlx_texture_to_image(mlx, g_conf->texts[1]);
+	g_conf->imgs[2] = mlx_texture_to_image(mlx, g_conf->texts[2]);
+	g_conf->imgs[3] = mlx_texture_to_image(mlx, g_conf->texts[3]);
+	g_conf->imgs[4] = mlx_texture_to_image(mlx, g_conf->texts[4]);
+	g_conf->imgs[5] = mlx_texture_to_image(mlx, g_conf->texts[5]);
+	g_conf->imgs[8] = mlx_texture_to_image(g_conf->mlx, g_conf->texts[6]);
 	g_conf->imgs[9] = mlx_texture_to_image(g_conf->mlx, g_conf->texts[7]);
 }
 
 void	init_anim(mlx_t *mlx, t_graphconf *g_conf)
 {
+	g_conf->anims = (t_animframe **)malloc(sizeof(t_animframe *) * 4);
+	g_conf->anims[1] = NULL;
+	g_conf->anims[2] = NULL;
+	g_conf->anims[3] = NULL;
 	g_conf->anims[0] = new_animation("slime/slime", 9, mlx);
+	if (!g_conf->anims[0])
+		frame_error(g_conf);
 	g_conf->anims[1] = new_animation("wizard/wizard", 6, mlx);
+	if (!g_conf->anims[1])
+		frame_error(g_conf);
 	g_conf->anims[2] = new_animation("death/death", 7, mlx);
+	if (!g_conf->anims[2])
+		frame_error(g_conf);
 	g_conf->anims[3] = new_animation("win/win", 6, mlx);
+	if (!g_conf->anims[3])
+		frame_error(g_conf);
 	g_conf->anims[0]->enable = 1;
 	g_conf->anims[1]->enable = 1;
 }

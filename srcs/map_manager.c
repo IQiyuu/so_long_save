@@ -6,22 +6,11 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:41:22 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/22 19:14:45 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/23 15:56:53 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	wrong_tile(char *line)
-{
-	int	cpt;
-
-	cpt = 0;
-	while (line[cpt])
-		if (ft_strchr("EP01SC", line[cpt++]) == -1)
-			return (1);
-	return (0);
-}
 
 int	ennemy_count(char **map)
 {
@@ -107,6 +96,7 @@ int	fill_map(t_mapconf **conf, char *filename)
 		}
 		line = get_next_line(fd);
 	}
+	close(fd);
 	(*conf)->map[(*conf)->y_size] = NULL;
 	return (!((((*conf)->escap) == NULL) || (((*conf)->player) == NULL)
 			|| (((*conf)->collectibles_nbr) < 1)));

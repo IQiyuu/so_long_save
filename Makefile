@@ -1,5 +1,6 @@
-NAME = scotch.a
-LIB = libft/libft.a
+NAME = so_long
+LIB = slime_attak.a
+LIBFT = libft/libft.a
 
 FILES = map_manager\
 		moves\
@@ -7,21 +8,21 @@ FILES = map_manager\
 		reef\
 		struct_init\
 		struct_init_bis\
-		term_graph\
 		utils\
 		window_manager\
 		graph_moves\
 		ennemy_manager\
 		end_game\
 		animation\
-		key_manager
+		key_manager\
+		error_manager
 
 S = $(foreach f, $(FILES), srcs/$(f).c)
 
 OBJ = $(S:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -I headers/ -I minilibx/include
-G_FLG = -fsanitize=address minilibx/libmlx42.a -lglfw -L "/Users/$(shell echo $(USER))/.brew/opt/glfw/lib/"
+G_FLG = minilibx/libmlx42.a -lglfw -L "/Users/$(shell echo $(USER))/.brew/opt/glfw/lib/"
 
 C1			= $(shell bc <<< "((($(CMP_COUNT)*100)/($(CMP_TOTAL) / 2))*255)/200")
 C2			= $(shell bc <<< "((($(CMP_COUNT)*100)/($(CMP_TOTAL) / 2))*255)/100")
@@ -32,6 +33,7 @@ CMP_COUNT	= $(shell ls | grep -c '\.o')
 
 CLEAR		= "\x1b\2K\r
 GREEN		= \x1b[38;2;0;255;0m
+L_GREEN		= \x1b[38;2;100;255;100m
 WHITE		= \x1b[0m
 CMP_OK		= has been successfully compiled!                                                    \n
 CMP_DELETE	= has been successfully deleted!													 \n
@@ -45,10 +47,14 @@ all: $(NAME)
 run: all
 	./so_long
 
-$(NAME): $(LIB) $(OBJ)
-	@ar -rcs scotch.a $(OBJ)
-	@gcc -o so_long srcs/main.c scotch.a $(CFLAGS) $(G_FLG) -g
-	@printf "\n$(WHITE)> $(GREEN)$(NAME) $(CMP_OK)$(WHITE)"
+norminette:
+	@printf $(CLEAR)$(L_GREEN)"
+	@norminette $(S) headers/*.h libft/*.c
+
+$(NAME): $(LIBFT) $(OBJ)
+	@ar -rcs $(LIB) $(OBJ)
+	@gcc -o $(NAME) srcs/main.c $(LIB) $(CFLAGS) $(G_FLG) -g
+	@printf "\n$(WHITE)> $(GREEN)$@ $(CMP_OK)$(WHITE)"
 
 .c.o:
 	@gcc $(CFLAGS) -o $@ -c $<
@@ -58,9 +64,9 @@ $(NAME): $(LIB) $(OBJ)
 		else printf $(CLEAR)>$(RBW_P2)";\
 	fi
 
-libft/libft.a:
+$(LIBFT):
 	@make -C libft/
-	@cp $(LIB) ./scotch.a
+	@cp $(LIBFT) $(LIB)
 
 clean:
 	@make -C libft/ clean
@@ -68,8 +74,8 @@ clean:
 	@printf "> $(GREEN)all .o $(CMP_DELETE)$(WHITE)"
 
 fclean: clean
-	@rm -rf $(NAME) $(LIB) ./so_long
-	@printf "> $(GREEN)$(NAME), libft.a and so_long $(CMP_DELETE)$(WHITE)"
+	@rm -rf $(LIB) $(LIBFT) $(NAME)
+	@printf "> $(GREEN)$(LIB), $(LIBFT) and $(NAME) $(CMP_DELETE)$(WHITE)"
 
 re: fclean all
 

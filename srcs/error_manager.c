@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   term_graph.c                                       :+:      :+:    :+:   */
+/*   error_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 18:36:47 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/21 13:20:14 by dgoubin          ###   ########.fr       */
+/*   Created: 2022/11/23 14:26:25 by dgoubin           #+#    #+#             */
+/*   Updated: 2022/11/23 16:16:09 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	print_term_map(char **tab)
+void	check_text_error(t_graphconf *g_conf)
 {
-	size_t	cpt;
+	int	cpt;
 
 	cpt = 0;
-	while (tab[cpt])
+	while (cpt < 8)
 	{
-		ft_putstr_fd(tab[cpt++], 1);
-		ft_putchar_fd('\n', 1);
+		if (!g_conf->texts[cpt++])
+		{
+			free_gconf(g_conf);
+			exit(EXIT_FAILURE);
+		}
 	}
-	ft_printf("Entrez la direction (asdw / '0' pour quitter) ");
+}
+
+void	frame_error(t_graphconf *g_conf)
+{
+	free_gconf(g_conf);
+	exit(EXIT_FAILURE);
 }

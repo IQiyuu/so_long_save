@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:43:12 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/22 18:50:42 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/23 16:39:42 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@
 # define ESC "escape pressed"
 # define WIN "%sWIN%s exit reached with all collectibles in %d moves !"
 # define DEATH "%sDEAD%s with %d/%d collectibles in %d moves"
+# define TEXT_ERROR "error during textures loading"
 # define FRAME_RATE 10
 # define DEATH_FRATE 7
 # define WIN_FRATE 6
 # define NBR_IMGS 10
 # define NBR_TEXTS 8
-
 
 // gestion map
 int			fill_map(t_mapconf **conf, char *filename);
@@ -57,10 +57,8 @@ int			is_end(char **map, t_player *player, size_t ttcol);
 int			nbr_move_pos(char **map, t_coords *act);
 int			is_in(t_list *closed, t_coords *act, int x, int y);
 int			same_coords(t_coords *c1, t_coords *act, int x, int y);
-void		print_tlist(t_list *lst);
-
-// term graph
-void		print_term_map(char **tab);
+int			wrong_tile(char *line);
+void		check_file_name(char *str);
 
 // 2D graph
 int			fill_win(t_graphconf *conf, mlx_t *mlx);
@@ -78,6 +76,7 @@ void		init_graph_enemies(t_graphconf *g_conf, mlx_t *mlx, int index);
 t_player	*free_player(t_player *player);
 t_mapconf	*free_conf(t_mapconf *conf);
 t_graphconf	*free_gconf(t_graphconf *g_conf);
+t_animframe	*free_anim(mlx_t *mlx, t_animframe *anim);
 
 // struct init
 t_mapconf	*init_map_struct(void);
@@ -107,6 +106,10 @@ void		black_fade(t_graphconf *g_conf);
 void		do_win_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf);
 void		do_death_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf);
 void		white_fade(t_graphconf *g_conf);
+
+// errors
+void		check_text_error(t_graphconf *g_conf);
+void		frame_error(t_graphconf *g_conf);
 
 void		end_game(t_graphconf *g_conf, int opt);
 

@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 19:39:38 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/22 18:37:29 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/23 16:22:31 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_graphconf	*new_graphconf(t_mapconf *conf, mlx_image_t **imgs,
 	g_conf->conf = conf;
 	g_conf->m_str = ft_strdup("moves : 0");
 	g_conf->i_str = ft_strjoin("Item : 0/", ft_itoa(conf->collectibles_nbr));
-	g_conf->anims = (t_animframe **)malloc(sizeof(t_animframe *) * 4);
+	g_conf->anims = NULL;
 	g_conf->anim_nbr = 4;
 	return (g_conf);
 }
@@ -109,6 +109,8 @@ t_animframe	*new_animation(char *base_filename, int size, mlx_t *mlx)
 		tmp = ft_strjoin(base_filename, ft_itoa(cpt));
 		tmp = ft_strjoin(tmp, ".png");
 		new_anim->texts[cpt] = mlx_load_png(ft_strjoin(IMG_PATH, tmp));
+		if (new_anim->texts[cpt] == NULL)
+			return (free_anim(mlx, new_anim));
 		new_anim->imgs[cpt] = mlx_texture_to_image(mlx, new_anim->texts[cpt]);
 		cpt++;
 	}

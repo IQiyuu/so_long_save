@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:56:59 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/22 14:42:57 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/23 15:43:43 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int	key_manager(t_graphconf *g_conf, mlx_key_data_t keydata)
 		if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP)
 			end = move_up(g_conf);
 	}
-	//if ((keydata.key == MLX_KEY_SPACE) && keydata.action != MLX_RELEASE)
-	//	end = move(g_conf);
 	if (keydata.key == MLX_KEY_ESCAPE)
 		end_game(g_conf, 0);
 	return (end);
