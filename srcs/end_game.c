@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:53:08 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 16:42:17 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 19:08:38 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ void	end_game(t_graphconf *g_conf, int opt)
 	else if (opt == 1)
 	{
 		if (g_conf->anims[0]->enable)
-			ft_printf(WIN, GREEN, L_GREEN, player->move_count);
+			ft_printf(WIN, GREEN, L_GREEN, ft_strjoin("on ",
+					g_conf->sel_map), player->move_count, '\n');
 		white_fade(g_conf);
 	}
 	else if (opt == 2)
 	{
 		if (g_conf->anims[0]->enable)
-			ft_printf(DEATH, RED, L_RED, player->item_count,
-				conf->collectibles_nbr, player->move_count);
+			ft_printf(DEATH, RED, L_RED, ft_strjoin("on ",
+					g_conf->sel_map), player->item_count,
+				conf->collectibles_nbr, player->move_count, '\n');
 		black_fade(g_conf);
 	}
 }
@@ -115,10 +117,11 @@ void	white_fade(t_graphconf *g_conf)
 	if (!anim->enable && f_cpt < 30)
 		anim->enable = 1;
 	else if (anim->enable)
-		do_win_anim(anim, g_conf->mlx, g_conf);
+		do_win_anim(anim, g_conf->mlx, g_conf, &f_cpt);
 }
 
-void	do_win_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf)
+void	do_win_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf,
+			int *cpt)
 {
 	if (anim->count == 0 && anim->index == 0)
 		mlx_image_to_window(mlx, anim->imgs[0],
@@ -136,6 +139,10 @@ void	do_win_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf)
 		{
 			free_conf(g_conf->conf);
 			g_conf->menu->unlocked_lvls++;
+			anim->imgs[5]->instances[0].enabled = 0;
+			g_conf->imgs[8]->enabled = 0;
+			g_conf->anims[3]->enable = 0;
+			*cpt = 0;
 			win_menu(g_conf);
 		}
 	}

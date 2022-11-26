@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:49:50 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/23 16:09:50 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 19:43:35 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ t_animframe	*free_anim(mlx_t *mlx, t_animframe *anim)
 	}
 	free(anim);
 	return (NULL);
+}
+
+void	free_gconf_bis(t_graphconf *g_conf)
+{
+	free(g_conf->sel_map);
 }
 
 t_graphconf	*free_gconf(t_graphconf *g_conf)

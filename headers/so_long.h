@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:43:12 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 16:43:59 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 19:58:13 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define MAP_PATH "maps/"
 # define MERROR "MAP ERROR"
 # define ESC "escape pressed"
-# define WIN "%sWIN%s exit reached with all collectibles in %d moves !"
-# define DEATH "%sDEAD%s with %d/%d collectibles in %d moves"
+# define WIN "%sWIN%s %s exit reached with all collectibles in %d moves !%c"
+# define DEATH "%sDEAD%s %s with %d/%d collectibles in %d moves%c"
 # define TEXT_ERROR "error during textures loading"
 # define FRAME_RATE 10
 # define DEATH_FRATE 7
@@ -62,6 +62,9 @@ int			is_in(t_list *closed, t_coords *act, int x, int y);
 int			same_coords(t_coords *c1, t_coords *act, int x, int y);
 int			wrong_tile(char *line);
 void		check_file_name(char *str);
+void		texts_null(t_graphconf *g_conf, int start, int end);
+void		imgs_null(t_graphconf *g_conf, int start, int end);
+void		delete_imgs(t_graphconf *g_conf, int start, int end);
 
 // 2D graph
 int			fill_win(t_graphconf *g_conf, mlx_t *mlx, size_t cpt);
@@ -77,6 +80,7 @@ void		init_graph_player(t_graphconf *g_conf);
 void		init_graph_enemies(t_graphconf *g_conf, mlx_t *mlx, int index);
 void		init_gameimg(mlx_t *mlx, t_graphconf *g_conf);
 void		init_gameanim(mlx_t *mlx, t_graphconf *g_conf);
+void		init_img(mlx_t *mlx, t_graphconf *g_conf);
 
 // free fct
 t_player	*free_player(t_player *player);
@@ -109,13 +113,14 @@ void		update_all_frame(int cpt, int old_index, t_graphconf *g_conf);
 void		update_ennemies(int old_index, t_graphconf *g_conf);
 void		update_player(int cpt, int old_index, t_graphconf *g_conf);
 void		black_fade(t_graphconf *g_conf);
-void		do_win_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf);
+void		do_win_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf,
+				int *cpt);
 void		do_death_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf);
 void		white_fade(t_graphconf *g_conf);
 void		update_menuplayer(int cpt, int old_index, t_graphconf *g_conf);
 
 // errors
-void		check_text_error(t_graphconf *g_conf);
+void		check_text_error(t_graphconf *g_conf, int nb);
 void		frame_error(t_graphconf *g_conf);
 
 // menu moves
@@ -126,8 +131,9 @@ int			menumove_up(t_graphconf *g_conf);
 int			menumove_down(t_graphconf *g_conf);
 
 // menu
-void		menukey_manager(t_graphconf *g_conf, mlx_key_data_t keydata);
+int			menukey_manager(t_graphconf *g_conf, mlx_key_data_t keydata);
 void		win_menu(t_graphconf *g_conf);
+void		init_menuwin(t_graphconf *g_conf);
 
 // game window
 int			win_game(t_graphconf *g_conf);

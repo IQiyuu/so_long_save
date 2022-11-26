@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:56:59 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 15:52:28 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 17:41:35 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	key_manager(t_graphconf *g_conf, mlx_key_data_t keydata)
 	end = 0;
 	if (keydata.action != MLX_RELEASE && g_conf->anims[0]->enable)
 	{
-		ft_printf("oui");
 		if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT)
 			end = move_left(g_conf);
 		if (keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT)

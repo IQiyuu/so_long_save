@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 18:33:39 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/25 21:34:01 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 17:29:20 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ int	apply_move(t_graphconf *g_conf)
 	p_y = conf->player->coords->y;
 	p_x = conf->player->coords->x;
 	m_count = &g_conf->conf->player->move_count;
-	graph_move_player(conf->player->coords, g_conf->anims[1]
-		->imgs[g_conf->anims[1]->index], conf->x_size, conf->y_size);
+	graph_move_player(conf->player->coords, g_conf->anims[0]
+		->imgs[g_conf->anims[0]->index], conf->x_size, conf->y_size);
 	graph_refresh_mcount(g_conf);
 	if (conf->map[p_y][p_x] == 'E' &&
 		conf->player->item_count == conf->collectibles_nbr)
 		return (1);
 	else if (conf->map[p_y][p_x] == 'C')
 	{
-		graph_dispawn_item(conf->player->coords, g_conf->imgs[4], conf->map);
+		graph_dispawn_item(conf->player->coords, g_conf->imgs[5], conf->map);
 		conf->player->item_count++;
 		conf->map[p_y][p_x] = 'c';
 		graph_refresh_icount(g_conf);

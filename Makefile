@@ -18,18 +18,18 @@ FILES = map_manager\
 		error_manager\
 		menumoves\
 		hook_manager\
-		menu_manager\
 		end_game_bis\
 		window_game\
-		window_menu
+		window_menu\
+		utils2
 
 
 S = $(foreach f, $(FILES), srcs/$(f).c)
 
 OBJ = $(S:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -I headers/ -I minilibx/include
-G_FLG = minilibx/libmlx42.a -lglfw -L "/Users/$(shell echo $(USER))/.brew/opt/glfw/lib/"
+CFLAGS = -Wall -Wextra -Werror -I headers/ -I minilibx/include -g3
+G_FLG = -fsanitize=address minilibx/libmlx42.a -lglfw -L "/Users/$(shell echo $(USER))/.brew/opt/glfw/lib/"
 
 C1			= $(shell bc <<< "((($(CMP_COUNT)*100)/($(CMP_TOTAL) / 2))*255)/200")
 C2			= $(shell bc <<< "((($(CMP_COUNT)*100)/($(CMP_TOTAL) / 2))*255)/100")

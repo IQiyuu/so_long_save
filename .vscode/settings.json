@@ -13,6 +13,7 @@
 		"unordered_map": "c",
 		"vector": "c",
 		"__node_handle": "c",
-		"chrono": "c"
+		"chrono": "c",
+		"so_long.h": "c"
 	}
 }

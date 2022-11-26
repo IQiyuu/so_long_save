@@ -6,18 +6,18 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 14:26:25 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/23 16:16:09 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 18:28:24 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	check_text_error(t_graphconf *g_conf)
+void	check_text_error(t_graphconf *g_conf, int nb)
 {
 	int	cpt;
 
 	cpt = 0;
-	while (cpt < 8)
+	while (cpt < nb)
 	{
 		if (!g_conf->texts[cpt++])
 		{

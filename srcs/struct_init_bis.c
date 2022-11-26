@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 19:39:38 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 16:42:33 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 19:42:42 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ t_graphconf	*new_graphconf(t_mapconf *conf, mlx_image_t **imgs,
 	g_conf->m_str = ft_strdup("moves : 0");
 	g_conf->i_str = NULL;
 	g_conf->anims = NULL;
-	g_conf->anim_nbr = 4;
+	g_conf->anim_nbr = 1;
 	g_conf->in_game = 0;
 	g_conf->perso = NULL;
-	g_conf->sel_map = "maps/lvl2.ber";
+	g_conf->sel_map = ft_strdup("maps/lvl2.ber");
+	g_conf->perso_f = 0;
 	return (g_conf);
 }
 
@@ -60,7 +61,7 @@ void	init_graph_player(t_graphconf *g_conf)
 	cpt = -1;
 	while (++cpt < 6)
 	{
-		img = g_conf->anims[1]->imgs[cpt];
+		img = g_conf->anims[0]->imgs[cpt];
 		mlx_image_to_window(g_conf->mlx, img,
 			(g_conf->conf->player->coords->x * 342),
 			((g_conf->conf->player->coords->y + 1) * 320));

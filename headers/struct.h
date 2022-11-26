@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:42:17 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/25 20:33:53 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 19:41:27 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_graphconf
 	char			*sel_map;
 	int				in_game;
 	char			*perso;
+	int				perso_f;
 }	t_graphconf;
 
 #endif

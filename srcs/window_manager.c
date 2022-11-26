@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:48:23 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 16:47:07 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 21:37:42 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	move_manager(mlx_key_data_t keydata, void *param)
 	if (keydata.action != MLX_RELEASE && g_conf->in_game)
 		end = key_manager(g_conf, keydata);
 	else if (!g_conf->in_game)
-		menukey_manager(g_conf, keydata);
+		end = menukey_manager(g_conf, keydata);
 	if (keydata.key == MLX_KEY_ESCAPE)
 		end_game(g_conf, 0);
 	if (end)
@@ -31,13 +31,16 @@ void	move_manager(mlx_key_data_t keydata, void *param)
 void	init_img(mlx_t *mlx, t_graphconf *g_conf)
 {
 	g_conf->texts[0] = mlx_load_png(ft_strjoin(IMG_PATH, "wizard/wizard0.png"));
-	if (g_conf->perso != NULL)
-		g_conf->texts[1] = mlx_load_png(ft_strjoin(IMG_PATH, "menu_map_p.png"));
-	else
-		g_conf->texts[1] = mlx_load_png(ft_strjoin(IMG_PATH, "menu_map.png"));
-	check_text_error(g_conf);
+	g_conf->texts[1] = mlx_load_png(ft_strjoin(IMG_PATH, "map_bg.png"));
+	g_conf->texts[2] = mlx_load_png(ft_strjoin(IMG_PATH, "unfinished.png"));
+	g_conf->texts[3] = mlx_load_png(ft_strjoin(IMG_PATH, "finished.png"));
+	texts_null(g_conf, 4, 11);
+	check_text_error(g_conf, 4);
 	g_conf->imgs[0] = mlx_texture_to_image(mlx, g_conf->texts[0]);
 	g_conf->imgs[1] = mlx_texture_to_image(mlx, g_conf->texts[1]);
+	g_conf->imgs[2] = mlx_texture_to_image(mlx, g_conf->texts[2]);
+	g_conf->imgs[3] = mlx_texture_to_image(mlx, g_conf->texts[3]);
+	imgs_null(g_conf, 4, 14);
 }
 
 void	init_anim(mlx_t *mlx, t_graphconf *g_conf)
@@ -61,19 +64,19 @@ int	win_init(char *filename)
 	t_graphconf		*g_conf;
 
 	mlx = mlx_init(1920, 1080, "slime_attak", true);
+	if (!mlx)
+		return (EXIT_FAILURE);
 	texts = (mlx_texture_t **)malloc(sizeof(mlx_texture_t *) * NBR_TEXTS);
 	imgs = (mlx_image_t **)malloc(sizeof(mlx_image_t *) * NBR_IMGS);
 	g_conf = new_graphconf(init_map_struct(), imgs, texts, mlx);
 	g_conf->menu = malloc(sizeof(t_menu));
-	g_conf->menu->unlocked_lvls = 1;
+	g_conf->menu->unlocked_lvls = 9;
 	g_conf->conf->player = new_player(new_coords(1, 0));
 	if (filename)
 		g_conf->perso = filename;
 	init_img(mlx, g_conf);
-	if (!mlx)
-		return (EXIT_FAILURE);
 	init_anim(mlx, g_conf);
-	mlx_image_to_window(mlx, g_conf->imgs[1], 0, 0);
+	init_menuwin(g_conf);
 	init_graph_player(g_conf);
 	mlx_loop_hook(mlx, &animation_manager, g_conf);
 	mlx_key_hook(mlx, &move_manager, g_conf);

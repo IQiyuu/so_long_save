@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 10:26:19 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 16:41:03 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 17:36:26 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	graph_refresh_mcount(t_graphconf *g_conf)
 {
-	mlx_delete_image(g_conf->mlx, g_conf->imgs[6]);
+	mlx_delete_image(g_conf->mlx, g_conf->imgs[9]);
 	g_conf->m_str = ft_strjoin("Moves : ",
 			ft_itoa(g_conf->conf->player->move_count++ + 1));
 	g_conf->imgs[9] = mlx_put_string(g_conf->mlx, g_conf->m_str, 10, 0);
@@ -25,7 +25,7 @@ void	graph_refresh_icount(t_graphconf *g_conf)
 	char	*p1;
 	char	*p2;
 
-	mlx_delete_image(g_conf->mlx, g_conf->imgs[7]);
+	mlx_delete_image(g_conf->mlx, g_conf->imgs[10]);
 	p1 = ft_strjoin("Items : ", ft_itoa(g_conf->conf->player->item_count));
 	p2 = ft_strjoin(p1, "/");
 	g_conf->i_str = ft_strjoin(p2, ft_itoa(g_conf->conf->collectibles_nbr));
