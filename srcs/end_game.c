@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:53:08 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 19:08:38 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 22:53:33 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	black_fade(t_graphconf *g_conf)
 		g_conf->anims[1]->enable = 0;
 		g_conf->anims[0]->enable = 0;
 	}
-	img = g_conf->imgs[7];
+	img = g_conf->imgs[9];
 	if (cpt < DEATH_FRATE && f_cpt < 15)
 		cpt++;
 	else
@@ -104,7 +104,7 @@ void	white_fade(t_graphconf *g_conf)
 		g_conf->anims[1]->enable = 0;
 		g_conf->anims[0]->enable = 0;
 	}
-	img = g_conf->imgs[8];
+	img = g_conf->imgs[10];
 	if (cpt < WIN_FRATE && f_cpt < 15)
 		cpt++;
 	else

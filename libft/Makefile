@@ -47,7 +47,8 @@ FILES = ft_isalpha\
 	  conversions\
 	  ft_convertbase\
 	  ft_lstclear\
-	  ft_lstdelone
+	  ft_lstdelone\
+	  ft_umax
 
 S = $(foreach f, $(FILES), $(f).c)
 OBJ = $(S:.c=.o)

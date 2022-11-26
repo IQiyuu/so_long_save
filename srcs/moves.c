@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 18:33:39 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 17:29:20 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 22:40:36 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	apply_move(t_graphconf *g_conf)
 		return (1);
 	else if (conf->map[p_y][p_x] == 'C')
 	{
-		graph_dispawn_item(conf->player->coords, g_conf->imgs[5], conf->map);
+		graph_dispawn_item(conf->player->coords, g_conf->imgs[7], conf->map);
 		conf->player->item_count++;
 		conf->map[p_y][p_x] = 'c';
 		graph_refresh_icount(g_conf);

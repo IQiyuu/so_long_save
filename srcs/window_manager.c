@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:48:23 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 21:37:42 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 22:17:52 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	win_init(char *filename)
 	imgs = (mlx_image_t **)malloc(sizeof(mlx_image_t *) * NBR_IMGS);
 	g_conf = new_graphconf(init_map_struct(), imgs, texts, mlx);
 	g_conf->menu = malloc(sizeof(t_menu));
-	g_conf->menu->unlocked_lvls = 9;
+	g_conf->menu->unlocked_lvls = 1;
 	g_conf->conf->player = new_player(new_coords(1, 0));
 	if (filename)
 		g_conf->perso = filename;

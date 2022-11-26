@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 19:15:52 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 20:21:50 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 22:19:57 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	menukey_manager(t_graphconf *g_conf, mlx_key_data_t keydata)
 							ft_itoa(g_conf->conf->player->coords->x
 								* (g_conf->conf->player->coords->y + 1))),
 						".ber");
+			delete_imgs(g_conf, 1, 4);
 			win_game(g_conf);
 		}
 	}

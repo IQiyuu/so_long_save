@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:43:12 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 19:58:13 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 22:12:35 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define FRAME_RATE 10
 # define DEATH_FRATE 7
 # define WIN_FRATE 6
-# define NBR_IMGS 11
-# define NBR_TEXTS 9
+# define NBR_IMGS 13
+# define NBR_TEXTS 11
 # define W_HEIGHT 1080 / 2
 # define W_WIDTH 1920 / 2
 
@@ -81,6 +81,7 @@ void		init_graph_enemies(t_graphconf *g_conf, mlx_t *mlx, int index);
 void		init_gameimg(mlx_t *mlx, t_graphconf *g_conf);
 void		init_gameanim(mlx_t *mlx, t_graphconf *g_conf);
 void		init_img(mlx_t *mlx, t_graphconf *g_conf);
+void		update_player_framez(t_graphconf *g_conf, int ref);
 
 // free fct
 t_player	*free_player(t_player *player);

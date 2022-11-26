@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:46:50 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 20:16:10 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/26 22:33:33 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	update_player(int cpt, int old_index, t_graphconf *g_conf)
 		= (W_WIDTH - (g_conf->conf->x_size / 2) * 64)
 		+ (g_conf->conf->player->coords->x - 1) * 64 - 15;
 	img->instances[0].y
-		= W_HEIGHT - (g_conf->conf->y_size / 2) * 64
-		+ ((g_conf->conf->player->coords->y - 1) * 64 + 34);
+		= W_HEIGHT - ((g_conf->conf->y_size / 2) * 64)
+		+ ((g_conf->conf->player->coords->y - 1) * 64) - 32;
 	img->instances[0].enabled = 1;
 }
 

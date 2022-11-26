@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   ft_umax.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/26 18:42:11 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 22:22:59 by dgoubin          ###   ########.fr       */
+/*   Created: 2022/11/26 22:03:45 by dgoubin           #+#    #+#             */
+/*   Updated: 2022/11/26 22:05:21 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	texts_null(t_graphconf *g_conf, int start, int end)
+size_t	umax(int a, int b)
 {
-	while (start < end)
-		g_conf->texts[start++] = NULL;
-}
-
-void	imgs_null(t_graphconf *g_conf, int start, int end)
-{
-	while (start < end)
-		g_conf->imgs[start++] = NULL;
-}
-
-void	delete_imgs(t_graphconf *g_conf, int start, int end)
-{
-	while (start < end)
-		mlx_delete_image(g_conf->mlx, g_conf->imgs[start++]);
+	if (a > b)
+		return (a);
+	return (b);
 }
