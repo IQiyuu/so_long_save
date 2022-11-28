@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 19:26:58 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 22:07:20 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/27 22:31:13 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int	menumove_left(t_graphconf *g_conf)
 	t_coords	*tmp;
 
 	act = g_conf->conf->player->coords;
-	if ((act->y == 1 && act->x > (6 - g_conf->menu->unlocked_lvls % 5))
+	if ((act->y == 1 && ((act->x > (5 - g_conf->menu->unlocked_lvls % 6)
+					&& g_conf->perso)
+				|| (act->x > (5 - g_conf->menu->unlocked_lvls % 6)
+					&& act->x > 1)))
 		|| (g_conf->perso && act->x >= 1 && act->y == 0)
 		|| (!g_conf->perso && act->x > 1 && act->y == 0))
 	{
@@ -88,8 +91,9 @@ int	menumove_right(t_graphconf *g_conf)
 	t_coords	*tmp;
 
 	act = g_conf->conf->player->coords;
-	if ((act->y == 0 && act->x < g_conf->menu->unlocked_lvls)
-		|| (act->y == 1 && act->x <  (5 - g_conf->menu->unlocked_lvls)))
+	if (((act->y == 0 && act->x < g_conf->menu->unlocked_lvls)
+			|| (act->y == 1 && act->x < (5 - g_conf->menu->unlocked_lvls)))
+		&& act->x < 5)
 	{
 		tmp = g_conf->conf->player->coords;
 		g_conf->conf->player->coords = new_coords(tmp->x + 1, tmp->y);

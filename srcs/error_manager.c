@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 14:26:25 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 18:28:24 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/27 12:29:07 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	check_text_error(t_graphconf *g_conf, int nb)
 
 void	frame_error(t_graphconf *g_conf)
 {
+	ft_printf("ERROR MISSING FRAME");
 	free_gconf(g_conf);
 	exit(EXIT_FAILURE);
 }

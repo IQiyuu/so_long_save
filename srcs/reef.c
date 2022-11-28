@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:49:50 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 19:43:35 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/27 16:45:55 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,11 @@ t_animframe	*free_anim(mlx_t *mlx, t_animframe *anim)
 
 void	free_gconf_bis(t_graphconf *g_conf)
 {
-	free(g_conf->sel_map);
+	if (g_conf->sel_map)
+		free(g_conf->sel_map);
+	free(g_conf->i_str);
+	free(g_conf->m_str);
+	system("killall afplay 2> /dev/null");
 }
 
 t_graphconf	*free_gconf(t_graphconf *g_conf)
@@ -89,8 +93,7 @@ t_graphconf	*free_gconf(t_graphconf *g_conf)
 			free_anim(g_conf->mlx, g_conf->anims[13 - cpt++]);
 		free(g_conf->anims);
 	}
-	free(g_conf->i_str);
-	free(g_conf->m_str);
+	free_gconf_bis(g_conf);
 	mlx_terminate(g_conf->mlx);
 	free_conf(g_conf->conf);
 	free(g_conf);

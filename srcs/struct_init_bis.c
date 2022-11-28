@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 19:39:38 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 19:42:42 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/27 21:47:51 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,30 +70,21 @@ void	init_graph_player(t_graphconf *g_conf)
 	}
 }
 
-void	init_graph_enemies(t_graphconf *g_conf, mlx_t *mlx, int index)
+void	init_graph_enemies(t_graphconf *g_conf)
 {
-	size_t		cpt;
-	size_t		cpt2;
-	int			cpt3;
-	mlx_image_t	*img;
+	size_t	cpt[4];
 
-	cpt = -1;
-	while (++cpt < g_conf->conf->y_size && g_conf->conf->map[cpt])
+	cpt[0] = -1;
+	while (++cpt[0] < g_conf->conf->y_size && g_conf->conf->map[cpt[0]])
 	{
-		cpt2 = -1;
-		while (++cpt2 < g_conf->conf->x_size && g_conf->conf->map[cpt][cpt2])
+		cpt[1] = -1;
+		while (++cpt[1] < g_conf->conf->x_size
+			&& g_conf->conf->map[cpt[0]][cpt[1]])
 		{
-			if (g_conf->conf->map[cpt][cpt2] == 'S')
+			if (g_conf->conf->map[cpt[0]][cpt[1]] == 'S')
 			{
-				cpt3 = -1;
-				while (++cpt3 < 9)
-				{
-					img = g_conf->anims[6]->imgs[cpt3];
-					index = mlx_image_to_window(mlx, img,
-							cpt2 * 64, (cpt * 64) + 15);
-					if (cpt3 != 0)
-						img->instances[index].enabled = 0;
-				}
+				cpt[2] = -1;
+				init_graph_ennemies_bis(g_conf, cpt);
 			}
 		}
 	}

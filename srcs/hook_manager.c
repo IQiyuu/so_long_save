@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 19:15:52 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 22:19:57 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/27 13:45:52 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,7 @@ int	menukey_manager(t_graphconf *g_conf, mlx_key_data_t keydata)
 			menumove_up(g_conf);
 		if (keydata.key == MLX_KEY_ENTER)
 		{
-			free(g_conf->sel_map);
-			if (same_coords(g_conf->conf->player->coords,
-					new_coords(0, 0), 0, 0))
-					g_conf->sel_map = ft_strdup(g_conf->perso);
-			else
-				g_conf->sel_map = ft_strjoin(ft_strjoin("maps/lvl",
-							ft_itoa(g_conf->conf->player->coords->x
-								* (g_conf->conf->player->coords->y + 1))),
-						".ber");
-			delete_imgs(g_conf, 1, 4);
+			refresh_win(g_conf);
 			win_game(g_conf);
 		}
 	}

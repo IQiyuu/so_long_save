@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:53:08 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 22:53:33 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/28 14:31:26 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ void	end_game(t_graphconf *g_conf, int opt)
 
 	conf = g_conf->conf;
 	player = conf->player;
+	if (g_conf->anims[0]->enable)
+		system("killall afplay 2> /dev/null");
 	if (opt == 0)
-	{
-		ft_printf(ESC);
-		free_gconf(g_conf);
-		exit(MLX_SUCCESS);
-	}
+		end_game_bis(g_conf, 1);
 	else if (opt == 1)
 	{
 		if (g_conf->anims[0]->enable)
@@ -67,10 +65,11 @@ void	black_fade(t_graphconf *g_conf)
 	if (!anim->enable && f_cpt < 10)
 		anim->enable = 1;
 	else if (anim->enable)
-		do_death_anim(anim, g_conf->mlx, g_conf);
+		do_death_anim(anim, g_conf->mlx, g_conf, &f_cpt);
 }
 
-void	do_death_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf)
+void	do_death_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf,
+	int *cpt)
 {
 	if (anim->count == 0 && anim->index == 0)
 		mlx_image_to_window(mlx, anim->imgs[0],
@@ -87,7 +86,11 @@ void	do_death_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf)
 		if (anim->index > anim->size + 7)
 		{
 			free_conf(g_conf->conf);
-			exit(EXIT_SUCCESS);
+			anim->imgs[6]->instances[0].enabled = 0;
+			g_conf->anims[2]->enable = 0;
+			*cpt = 0;
+			system("killall afplay 2> /dev/null");
+			win_menu(g_conf);
 		}
 	}
 }
@@ -101,6 +104,7 @@ void	white_fade(t_graphconf *g_conf)
 
 	if (f_cpt == 0)
 	{
+		system("afplay music/zelda.mp3 & disown");
 		g_conf->anims[1]->enable = 0;
 		g_conf->anims[0]->enable = 0;
 	}
@@ -138,9 +142,11 @@ void	do_win_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf,
 		if (anim->index > anim->size + 5)
 		{
 			free_conf(g_conf->conf);
-			g_conf->menu->unlocked_lvls++;
+			if (!ft_strncmp(g_conf->sel_map, ft_strjoin(ft_strjoin("maps/lvl",
+							ft_itoa(g_conf->menu->unlocked_lvls)), ".ber"), 13))
+			g_conf->menu->unlocked_lvls = ft_min(g_conf->menu->unlocked_lvls
+						+ 1, 10);
 			anim->imgs[5]->instances[0].enabled = 0;
-			g_conf->imgs[8]->enabled = 0;
 			g_conf->anims[3]->enable = 0;
 			*cpt = 0;
 			win_menu(g_conf);

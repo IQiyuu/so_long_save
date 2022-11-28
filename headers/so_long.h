@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:43:12 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 22:12:35 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/27 22:20:06 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,19 @@
 # define SL_PATH "imgs/slime"
 # define MAP_PATH "maps/"
 # define MERROR "MAP ERROR"
-# define ESC "escape pressed"
+# define ESC "Rage quited!\n"
 # define WIN "%sWIN%s %s exit reached with all collectibles in %d moves !%c"
 # define DEATH "%sDEAD%s %s with %d/%d collectibles in %d moves%c"
-# define TEXT_ERROR "error during textures loading"
+# define TEXT_ERROR "error during textures loading\n"
+# define CROSS "cross pressed\n"
+# define MESC "M pressed return to menu\n"
 # define FRAME_RATE 10
 # define DEATH_FRATE 7
 # define WIN_FRATE 6
 # define NBR_IMGS 13
 # define NBR_TEXTS 11
-# define W_HEIGHT 1080 / 2
-# define W_WIDTH 1920 / 2
+# define W_HEIGHT 540
+# define W_WIDTH 960
 
 // gestion map
 int			fill_map(t_mapconf **conf, char *filename);
@@ -65,6 +67,10 @@ void		check_file_name(char *str);
 void		texts_null(t_graphconf *g_conf, int start, int end);
 void		imgs_null(t_graphconf *g_conf, int start, int end);
 void		delete_imgs(t_graphconf *g_conf, int start, int end);
+void		update_ppos_menu(t_graphconf *g_conf, t_coords *act);
+void		update_ppos_game(t_graphconf *g_conf, t_coords *act);
+void		frame_update_bis(t_graphconf *g_conf);
+t_player	*init_menuplayer(t_graphconf *g_conf);
 
 // 2D graph
 int			fill_win(t_graphconf *g_conf, mlx_t *mlx, size_t cpt);
@@ -75,13 +81,15 @@ void		graph_move_player(t_coords *p_coords, mlx_image_t *img,
 				size_t x_size, size_t y_size);
 void		graph_refresh_mcount(t_graphconf *g_conf);
 void		graph_refresh_icount(t_graphconf *g_conf);
-void		graph_move_ennemy(t_coords *e_coords, mlx_image_t *img, int index);
+void		graph_move_ennemy(t_coords *e_coords, mlx_image_t *img, int index,
+				t_graphconf *g_conf);
 void		init_graph_player(t_graphconf *g_conf);
-void		init_graph_enemies(t_graphconf *g_conf, mlx_t *mlx, int index);
+void		init_graph_enemies(t_graphconf *g_conf);
+void		init_graph_ennemies_bis(t_graphconf *g_conf, size_t *cpt);
 void		init_gameimg(mlx_t *mlx, t_graphconf *g_conf);
 void		init_gameanim(mlx_t *mlx, t_graphconf *g_conf);
 void		init_img(mlx_t *mlx, t_graphconf *g_conf);
-void		update_player_framez(t_graphconf *g_conf, int ref);
+void		update_player_framez(t_graphconf *g_conf, int ref, int rd);
 
 // free fct
 t_player	*free_player(t_player *player);
@@ -116,7 +124,8 @@ void		update_player(int cpt, int old_index, t_graphconf *g_conf);
 void		black_fade(t_graphconf *g_conf);
 void		do_win_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf,
 				int *cpt);
-void		do_death_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf);
+void		do_death_anim(t_animframe *anim, mlx_t *mlx, t_graphconf *g_conf,
+				int *cpt);
 void		white_fade(t_graphconf *g_conf);
 void		update_menuplayer(int cpt, int old_index, t_graphconf *g_conf);
 
@@ -138,8 +147,10 @@ void		init_menuwin(t_graphconf *g_conf);
 
 // game window
 int			win_game(t_graphconf *g_conf);
+void		refresh_win(t_graphconf *g_conf);
 
 void		end_game(t_graphconf *g_conf, int opt);
 void		end_game_bis(t_graphconf *g_conf, int opt);
+void		end_game_manager(t_graphconf *g_conf);
 
 #endif

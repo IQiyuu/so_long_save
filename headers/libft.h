@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:39:27 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/23 17:16:57 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/27 21:14:22 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_list	*ft_lstnew(void	*content);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
+int		ft_lstsize(t_list *lst);
 int		ft_nbr_of(char *str, char c);
 char	*get_next_line(int fd);
 int		ft_printf(const char *str, ...);

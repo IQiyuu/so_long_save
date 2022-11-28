@@ -21,7 +21,8 @@ FILES = map_manager\
 		end_game_bis\
 		window_game\
 		window_menu\
-		utils2
+		utils2\
+		utils3
 
 
 S = $(foreach f, $(FILES), srcs/$(f).c)

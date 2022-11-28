@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 10:26:19 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 22:42:10 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/27 18:41:01 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,17 @@ void	graph_dispawn_item(t_coords *p_coords, mlx_image_t *img, char **map)
 void	graph_move_player(t_coords *p_coords, mlx_image_t *img, size_t x_size,
 	size_t y_size)
 {
-	img->instances[0].x =  (W_WIDTH - (x_size / 2) * 64)
-		+ (p_coords->x - 1) * 64 - 15;
+	img->instances[0].x = (W_WIDTH - (x_size / 2) * 64)
+		+ (p_coords->x) * 64 - 15;
 	img->instances[0].y = W_HEIGHT - ((y_size / 2) * 64)
 		+ ((p_coords->y - 1) * 64) - 32;
 }
 
-void	graph_move_ennemy(t_coords *e_coords, mlx_image_t *img, int index)
+void	graph_move_ennemy(t_coords *e_coords, mlx_image_t *img, int index,
+	t_graphconf *g_conf)
 {
-	img->instances[index].x = (e_coords->x * 64);
-	img->instances[index].y = (e_coords->y * 64);
+	img->instances[index].x = (W_WIDTH - (g_conf->conf->x_size / 2) * 64)
+		+ (e_coords->x) * 64;
+	img->instances[index].y = W_HEIGHT - ((g_conf->conf->y_size / 2) * 64)
+		+ ((e_coords->y - 1) * 64) + 15;
 }

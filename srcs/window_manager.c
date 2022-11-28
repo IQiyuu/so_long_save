@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:48:23 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/26 22:17:52 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/28 14:21:09 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,28 @@ void	init_anim(mlx_t *mlx, t_graphconf *g_conf)
 	g_conf->anims[1] = NULL;
 	g_conf->anims[2] = NULL;
 	g_conf->anims[3] = NULL;
-	//g_conf->anims[4] = NULL;
 	g_conf->anims[0] = new_animation("wizard/wizard", 6, mlx);
 	if (!g_conf->anims[0])
 		frame_error(g_conf);
 	g_conf->anims[0]->enable = 1;
+}
+
+void	refresh_win(t_graphconf *g_conf)
+{
+	free(g_conf->sel_map);
+	if (same_coords(g_conf->conf->player->coords,
+			new_coords(0, 0), 0, 0))
+		g_conf->sel_map = ft_strdup(g_conf->perso);
+	else
+	{
+		if (!g_conf->conf->player->coords->y)
+			g_conf->sel_map = ft_strjoin(ft_strjoin("maps/lvl",
+						ft_itoa(g_conf->conf->player->coords->x)), ".ber");
+		else
+			g_conf->sel_map = ft_strjoin(ft_strjoin("maps/lvl",
+						ft_itoa(11 - g_conf->conf->player->coords->x)), ".ber");
+	}
+	delete_imgs(g_conf, 1, 4);
 }
 
 int	win_init(char *filename)
@@ -70,7 +87,7 @@ int	win_init(char *filename)
 	imgs = (mlx_image_t **)malloc(sizeof(mlx_image_t *) * NBR_IMGS);
 	g_conf = new_graphconf(init_map_struct(), imgs, texts, mlx);
 	g_conf->menu = malloc(sizeof(t_menu));
-	g_conf->menu->unlocked_lvls = 1;
+	g_conf->menu->unlocked_lvls = 10;
 	g_conf->conf->player = new_player(new_coords(1, 0));
 	if (filename)
 		g_conf->perso = filename;
@@ -80,6 +97,7 @@ int	win_init(char *filename)
 	init_graph_player(g_conf);
 	mlx_loop_hook(mlx, &animation_manager, g_conf);
 	mlx_key_hook(mlx, &move_manager, g_conf);
+	mlx_close_hook(mlx, (mlx_closefunc)end_game_manager, g_conf);
 	mlx_loop(mlx);
 	return (EXIT_SUCCESS);
 }

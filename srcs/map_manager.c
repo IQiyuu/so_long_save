@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:41:22 by dgoubin           #+#    #+#             */
-/*   Updated: 2022/11/23 15:56:53 by dgoubin          ###   ########.fr       */
+/*   Updated: 2022/11/27 21:50:02 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ size_t	line_is_valid(char *line, t_mapconf *conf, size_t cpt)
 {
 	if (conf->x_size == 0)
 		conf->x_size = ft_strlen(line);
-	if (ft_strlen(line) != conf->x_size)
+	if (ft_strlen(line) != conf->x_size || conf->x_size > 30)
 		return (0);
 	if (ft_strchr(line, 'P') != -1)
 	{
@@ -112,7 +112,7 @@ t_mapconf	*init_map(char *filename)
 	while (get_next_line(fd))
 		conf->y_size++;
 	close(fd);
-	if (conf->y_size < 3)
+	if (conf->y_size < 3 || conf->y_size > 15)
 		return (free_conf(conf));
 	conf->map = (char **)malloc(sizeof(char *) * (conf->y_size + 1));
 	if (!conf->map)
