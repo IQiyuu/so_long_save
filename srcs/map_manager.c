@@ -59,7 +59,6 @@ size_t	line_is_valid(char *line, t_mapconf *conf, size_t cpt)
 int	encapsuled(t_mapconf *conf)
 {
 	size_t	cpt;
-	size_t	cpt2;
 
 	cpt = 0;
 	while (conf->map[0][cpt])
@@ -69,7 +68,7 @@ int	encapsuled(t_mapconf *conf)
 	while (++cpt < conf->y_size && conf->map[cpt])
 		if (conf->map[cpt][conf->x_size - 1] != '1' || conf->map[cpt][0] != '1')
 			return (0);
-	cpt2 = 0;
+	cpt = 0;
 	while (conf->map[conf->y_size - 1][cpt])
 		if (conf->map[conf->y_size - 1][cpt++] != '1')
 			return (0);
